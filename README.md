@@ -31,7 +31,9 @@ Program source code for SI Warung Makan Project [RPL B - 2021].
 6. run `composer install`
 7. run `php artisan key:generate`
 8. All Set ~
-9. Not work? [open issue](https://github.com/TheSkinnyRat/si-warung-makan/issues)
+9. You can try login to backend using `username: superadmin` and `password: superadmin`
+10. Or you can directly insert data to user table using BCrypt as password encryptor. You can use [BCrypt generator tool](https://bcrypt-generator.com/) in online sites to encrypt your password!
+11. Not work? [open issue](https://github.com/TheSkinnyRat/si-warung-makan/issues)
 
 ## To Do Lists
 
