@@ -24,13 +24,13 @@ Program source code for SI Warung Makan Project [RPL B - 2021].
 ## Getting Started
 
 1. Configure the [database](https://github.com/TheSkinnyRat/si-warung-makan-db)
-2. Download / Clone this repository to your server or local server `(htdocs in xampp, /www folder, etc)`
+2. Download / clone this repository to your server or local server `(htdocs in xampp, /www folder, etc)`
 3. Rename or copy `.env.example` to `.env`
 4. Open `.env` file and configure according to your database
 5. Open command line (cmd, power shell, etc)
-6. run `composer install`
-7. run `php artisan key:generate`
-8. All Set ~
+6. Run `composer install`
+7. Run `php artisan key:generate`
+8. All set ~
 9. You can try login to backend using `username: superadmin` and `password: superadmin`
 10. Or you can directly insert data to user table using BCrypt as password encryptor. You can use [BCrypt generator tool](https://bcrypt-generator.com/) in online sites to encrypt your password!
 11. Not work? [open issue](https://github.com/TheSkinnyRat/si-warung-makan/issues)
@@ -47,15 +47,15 @@ Program source code for SI Warung Makan Project [RPL B - 2021].
     - [x] ~~CRUD Kategori~~
     - [ ] CRUD Status
     - [ ] CRUD Pelanggan
-    - [ ] Manajemen pesanan
-    - [ ] Generate laporan
+    - [ ] Manajemen Pesanan
+    - [ ] Generate Laporan
 - Admin
-    - [ ] Manajemen pesanan
+    - [ ] Manajemen Pesanan
 
 **Frontend**
-- [ ] Sistem pendaftaran
-- [ ] Sistem pemesanan
-- [ ] Status pesanan
+- [ ] Sistem Pendaftaran
+- [ ] Sistem Pemesanan
+- [ ] Status Pesanan
 
 ## Find a bug or something wrong ?
 **[Open issue !](https://github.com/TheSkinnyRat/si-warung-makan/issues)**
