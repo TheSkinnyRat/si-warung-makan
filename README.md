@@ -9,7 +9,7 @@ Program source code for SI Warung Makan Project [RPL B - 2021].
 
 ## Online Preview
 
- [[Coming Soon]](#)
+ [[Coming Soon]]()
 
 ## Used Technology
 
