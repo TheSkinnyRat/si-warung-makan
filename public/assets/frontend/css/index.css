@@ -1,0 +1,18 @@
+/* Show it is fixed to the top */
+body{
+	padding-top: 8vh;
+}
+
+img{
+  max-width: 100%;
+  height: auto !important;
+}
+
+.bg-gradient-light-custom{
+	background-image:-webkit-gradient(linear,left top,left bottom,from(#EFF2F4),to(#fff));
+	background-image:linear-gradient(to bottom,#EFF2F4 0,#fff 100%)
+}
+
+.bg-gray-200-custom{
+	background-color: #f1f4f8 !important;
+}
