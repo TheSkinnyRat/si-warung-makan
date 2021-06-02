@@ -55,5 +55,9 @@ Program source code for SI Warung Makan Project [RPL B - 2021].
 - [ ] Sistem pemesanan
 - [ ] Status pesanan
 
+## Find a bug or something wrong ?
+**[Open issue !](https://github.com/TheSkinnyRat/si-warung-makan/issues)**
+
 ## LICENSE
+
 > [MIT License](https://github.com/TheSkinnyRat/si-warung-makan/blob/master/LICENSE)
