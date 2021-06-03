@@ -46,7 +46,7 @@ Program source code for SI Warung Makan Project [RPL B - 2021].
     - [x] ~~CRUD Menu~~
     - [x] ~~CRUD Kategori~~
     - [ ] CRUD Status
-    - [ ] CRUD Pelanggan
+    - [x] ~~CRUD Pelanggan~~
     - [ ] Manajemen Pesanan
     - [ ] Generate Laporan
 - Admin
