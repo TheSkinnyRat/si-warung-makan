@@ -18,7 +18,7 @@
       <div class="container">
         <div class="row align-items-center">
           <div class="col-12 my-md-4 text-center">
-            <h1 class="h3 text-gray-800 font-weight-bold">Manajemen User</h1>
+            <h1 class="h3 text-gray-800 font-weight-bold">Manajemen Pelanggan</h1>
             <hr>
           </div>
           <div class="col-12">
@@ -26,10 +26,10 @@
               <div class="card-header py-3">
                 <div class="row align-items-center">
                   <div class="col-10">
-                    <span class="m-0 font-weight-bold text-primary">Data User</span>
+                    <span class="m-0 font-weight-bold text-primary">Data Pelanggan</span>
                   </div>
                   <div class="col-2 text-right">
-                    <a href="{{ route('backend.superadmin.user.add') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i></a>
+                    <a href="{{ route('backend.superadmin.pelanggan.add') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i></a>
                   </div>
                 </div>
               </div>
@@ -44,24 +44,20 @@
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Username</th>
-                        <th>Password</th>
                         <th>Nama</th>
-                        <th>Level</th>
+                        <th>Email</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($users as $u)
+                      @foreach ($pelanggans as $pelanggan)
                         <tr>
-                          <td>{{ $u->id_user }}</td>
-                          <td>{{ $u->username }}</td>
-                          <td><span class="text-info font-italic">Encrypted</span></td>
-                          <td>{{ $u->nama }}</td>
-                          <td>{{ ($u->level == 0) ? 'Owner' : 'Staff' }}</td>
+                          <td>{{ $pelanggan->id_pelanggan }}</td>
+                          <td>{{ $pelanggan->nama }}</td>
+                          <td>{{ $pelanggan->email }}</td>
                           <td>
-                            <a href="{{ route('backend.superadmin.user.edit', ['id' => $u->id_user]) }}" class="btn btn-info btn-sm"><i class="far fa-edit"></i></a>
-                            <a href="{{ route('backend.superadmin.user.delete', ['id' => $u->id_user]) }}" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                            <a href="{{ route('backend.superadmin.pelanggan.edit', ['id' => $pelanggan->id_pelanggan]) }}" class="btn btn-info btn-sm"><i class="far fa-edit"></i></a>
+                            <a href="{{ route('backend.superadmin.pelanggan.delete', ['id' => $pelanggan->id_pelanggan]) }}" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
                           </td>
                         </tr>
                       @endforeach

@@ -60,12 +60,7 @@
 
 		  <div class="navbar-text">
 		    <a href="{{ route('backend.login') }}" class="font-weight-bold text-info">
-          <div class="d-none d-sm-inline">
-            {{ $user->level == 0 ? 'SUPER ADMIN' : 'ADMIN' }}
-          </div>
-          <div class="d-inline d-sm-none">
-            {{ $user->level == 0 ? 'SA' : 'A' }}
-          </div>
+          {{ $user->level == 0 ? 'OWNER' : 'STAFF' }}
         </a>
 
 		    <button class="btn btn-link btn-sm d-lg-none rounded-circle" type="button" data-toggle="collapse" data-target="#navToggler1" aria-controls="navToggler1" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,7 +88,7 @@
               <div class="dropdown-divider"></div>
               
               <h6 class="dropdown-header">Manajemen Pelanggan</h6>
-              <a class="dropdown-item" href="#"><i class="fas fa-user"></i> Data Pelanggan</a>
+              <a class="dropdown-item" href="{{ route('backend.superadmin.pelanggan') }}"><i class="fas fa-user"></i> Data Pelanggan</a>
 		        </div>
 		      </li>
 		      <li class="nav-item p-1 p-lg-0">

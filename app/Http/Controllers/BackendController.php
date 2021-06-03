@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use App\Models\User;
 use App\Models\Menu_list;
 use App\Models\Kategori_menu;
+use App\Models\Pelanggan;
 use Session;
 use Storage;
 
@@ -299,6 +300,83 @@ class BackendController extends Controller
         Session::flash('message', 'Berhasil menghapus data');
         Session::flash('message-class', 'danger');
         return redirect()->route('backend.superadmin.kategori');
+    }
+
+    public function pelanggan(){
+        $user = Auth::user();
+        $pelanggans = Pelanggan::all();
+        return view('backend.superadmin.pelanggan.index', ['user' => $user, 'pelanggans' => $pelanggans]);
+    }
+
+    public function pelangganAdd(){
+        $user = Auth::user();
+        return view('backend.superadmin.pelanggan.form', ['user' => $user]);
+    }
+
+    public function pelangganAddDo(Request $request){
+        $pelanggans = new Pelanggan;
+
+        $request->validate([
+            'nama' => 'required|alpha',
+            'email' => 'required|email|unique:pelanggan',
+        ]);
+
+        $id_pelanggan = mt_rand(100000000, 999999999);
+        $count = 0;
+        while(Pelanggan::find($id_pelanggan)){
+            $id_pelanggan = mt_rand(100000000, 999999999);
+            $count++;
+            if($count == 899999999){
+                return redirect()->route('error')->withErrors(['type' => '501','message' => 'Jumlah pelanggan sudah mencapai batas maksimal']);
+            }
+        }
+
+        $pelanggans->id_pelanggan = $id_pelanggan;
+        $pelanggans->nama = $request->nama;
+        $pelanggans->email = $request->email;
+        $pelanggans->save();
+        
+        Session::flash('message', 'Berhasil menambahkan data');
+        Session::flash('message-class', 'success');
+        return redirect()->route('backend.superadmin.pelanggan');
+    }
+
+    public function pelangganEdit($id){
+        $user = Auth::user();
+        $pelanggans = Pelanggan::find($id);
+        if (!$pelanggans){
+            abort(404);
+        }
+
+        return view('backend.superadmin.pelanggan.form', ['user' => $user, 'pelanggans' => $pelanggans]);
+    }
+
+    public function pelangganEditDo($id, Request $request){
+        $pelanggans = Pelanggan::find($id);
+        if (!$pelanggans){
+            abort(404);
+        }
+
+        $request->validate([
+            'nama' => 'required|alpha',
+            'email' => ['required', 'email', Rule::unique('pelanggan')->ignore($pelanggans)],
+        ]);
+
+        $pelanggans->nama = $request->nama;
+        $pelanggans->email = $request->email;
+        $pelanggans->save();
+        
+        Session::flash('message', 'Berhasil meng-update data');
+        Session::flash('message-class', 'warning');
+        return redirect()->route('backend.superadmin.pelanggan');
+    }
+
+    public function pelangganDeleteDo($id){
+        Pelanggan::destroy($id);
+        
+        Session::flash('message', 'Berhasil menghapus data');
+        Session::flash('message-class', 'danger');
+        return redirect()->route('backend.superadmin.pelanggan');
     }
 
     // Admin Section

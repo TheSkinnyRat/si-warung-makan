@@ -121,7 +121,7 @@
                       </div>
                       <div class="col">
                         <div class="text-right">
-                          <a href="#" class="btn btn-success btn-sm">
+                          <a href="{{ route('backend.superadmin.pelanggan') }}" class="btn btn-success btn-sm">
                             Lihat Data
                           </a>
                         </div>

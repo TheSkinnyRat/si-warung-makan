@@ -19,9 +19,8 @@ use App\Http\Controllers\BackendController;
 //     return view('index');
 // });
 
-Route::get('/error', [HomeController::class, 'error'])->name('error');
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/error', [HomeController::class, 'error'])->name('error');
 
 Route::get('/backend/login', [BackendController::class, 'login'])->name('backend.login');
 Route::post('/backend/login/do', [BackendController::class, 'loginDo'])->name('backend.login.do');
@@ -51,6 +50,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/backend/superadmin/kategori/edit/{id}', [BackendController::class, 'kategoriEdit'])->name('backend.superadmin.kategori.edit');
         Route::post('/backend/superadmin/kategori/edit/{id}/do', [BackendController::class, 'kategoriEditDo'])->name('backend.superadmin.kategori.edit.do');
         Route::get('/backend/superadmin/kategori/delete/{id}', [BackendController::class, 'kategoriDeleteDo'])->name('backend.superadmin.kategori.delete');
+        // Pelanggan CRUD
+        Route::get('/backend/superadmin/pelanggan', [BackendController::class, 'pelanggan'])->name('backend.superadmin.pelanggan');
+        Route::get('/backend/superadmin/pelanggan/add', [BackendController::class, 'pelangganAdd'])->name('backend.superadmin.pelanggan.add');
+        Route::post('/backend/superadmin/pelanggan/add/do', [BackendController::class, 'pelangganAddDo'])->name('backend.superadmin.pelanggan.add.do');
+        Route::get('/backend/superadmin/pelanggan/edit/{id}', [BackendController::class, 'pelangganEdit'])->name('backend.superadmin.pelanggan.edit');
+        Route::post('/backend/superadmin/pelanggan/edit/{id}/do', [BackendController::class, 'pelangganEditDo'])->name('backend.superadmin.pelanggan.edit.do');
+        Route::get('/backend/superadmin/pelanggan/delete/{id}', [BackendController::class, 'pelangganDeleteDo'])->name('backend.superadmin.pelanggan.delete');
     });
     Route::middleware(['login.check:1'])->group(function () {
         // Route untuk Admin

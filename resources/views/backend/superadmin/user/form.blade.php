@@ -94,11 +94,11 @@
                     <br>
                     <div class="form-check form-check-inline">
                       <input class="form-check-input @error('level') is-invalid @enderror" type="radio" name="level" id="level-superadmin" value="0" {{ (isset($users) && $users->level == 0) ? 'checked' : (old('level') == '0' ? 'checked' : '') }}>
-                      <label class="form-check-label" for="level-superadmin">Super Admin</label>
+                      <label class="form-check-label" for="level-superadmin">Owner</label>
                     </div>
                     <div class="form-check form-check-inline">
                       <input class="form-check-input @error('level') is-invalid @enderror" type="radio" name="level" id="level-admin" value="1" {{ (isset($users) && $users->level == 1) ? 'checked' : (old('level') == '1' ? 'checked' : '') }}>
-                      <label class="form-check-label" for="level-admin">Admin</label>
+                      <label class="form-check-label" for="level-admin">Staff</label>
                     </div>
                   </div>
                   <small><span class="text-danger">*</span>) Diperlukan</small>
