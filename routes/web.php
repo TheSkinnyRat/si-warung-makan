@@ -78,6 +78,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/backend/superadmin/detail/edit/{id}', [BackendController::class, 'detailEdit'])->name('backend.superadmin.detail.edit');
         Route::post('/backend/superadmin/detail/edit/{id}/do', [BackendController::class, 'detailEditDo'])->name('backend.superadmin.detail.edit.do');
         Route::get('/backend/superadmin/detail/delete/{id}', [BackendController::class, 'detailDeleteDo'])->name('backend.superadmin.detail.delete');
+        // Pembayaran CRUD
+        Route::get('/backend/superadmin/pembayaran', [BackendController::class, 'pembayaran'])->name('backend.superadmin.pembayaran');
+        Route::get('/backend/superadmin/pembayaran/add', [BackendController::class, 'pembayaranAdd'])->name('backend.superadmin.pembayaran.add');
+        Route::post('/backend/superadmin/pembayaran/add/do', [BackendController::class, 'pembayaranAddDo'])->name('backend.superadmin.pembayaran.add.do');
+        Route::get('/backend/superadmin/pembayaran/edit/{id}', [BackendController::class, 'pembayaranEdit'])->name('backend.superadmin.pembayaran.edit');
+        Route::post('/backend/superadmin/pembayaran/edit/{id}/do', [BackendController::class, 'pembayaranEditDo'])->name('backend.superadmin.pembayaran.edit.do');
+        Route::get('/backend/superadmin/pembayaran/delete/{id}', [BackendController::class, 'pembayaranDeleteDo'])->name('backend.superadmin.pembayaran.delete');
     });
     Route::middleware(['login.check:1'])->group(function () {
         // Route untuk Admin

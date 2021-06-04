@@ -91,6 +91,7 @@
               <a class="dropdown-item" href="{{ route('backend.superadmin.status') }}"><i class="fas fa-list-alt"></i> Data Status List</a>
               <a class="dropdown-item" href="{{ route('backend.superadmin.pemesanan') }}"><i class="fas fa-book"></i> Data Pemesanan</a>
               <a class="dropdown-item" href="{{ route('backend.superadmin.detail') }}"><i class="fas fa-book-medical"></i> Data Detail Pemesanan</a>
+              <a class="dropdown-item" href="{{ route('backend.superadmin.pembayaran') }}"><i class="fas fa-money-check-alt"></i> Data Pembayaran</a>
 
               <div class="dropdown-divider"></div>
               

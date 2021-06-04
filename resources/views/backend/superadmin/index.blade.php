@@ -220,6 +220,36 @@
                   </div>
                 </div>
               </div>
+              <div class="col-12 col-lg-6 col-xl-4 my-2">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <i class="fas fa-money-check-alt fa-4x"></i>
+                      </div>
+                      <div class="col">
+                        <h3 class="h3">
+                          Data Pembayaran
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer text-muted">
+                    <div class="row">
+                      <div class="col">
+                        {{ $count['pembayarans'] }} Pembayaran
+                      </div>
+                      <div class="col">
+                        <div class="text-right">
+                          <a href="{{ route('backend.superadmin.pembayaran') }}" class="btn btn-success btn-sm">
+                            Lihat Data
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

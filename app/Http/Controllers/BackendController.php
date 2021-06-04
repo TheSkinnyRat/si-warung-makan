@@ -13,6 +13,7 @@ use App\Models\Pelanggan;
 use App\Models\Status_list;
 use App\Models\Pemesanan;
 use App\Models\Detail_pemesanan;
+use App\Models\Pembayaran;
 use Session;
 use Storage;
 
@@ -70,6 +71,7 @@ class BackendController extends Controller
         $statuses = Status_list::all();
         $pemesanans = Pemesanan::all();
         $details = Detail_pemesanan::all();
+        $pembayarans = Pembayaran::all();
 
         $count = ([
             'users' => $users->count(),
@@ -79,6 +81,7 @@ class BackendController extends Controller
             'statuses' => $statuses->count(),
             'pemesanans' => $pemesanans->count(),
             'details' => $details->count(),
+            'pembayarans' => $pembayarans->count(),
         ]);
 
         return view('backend.superadmin.index', ['user' => $user, 'count' => $count]);
@@ -613,6 +616,78 @@ class BackendController extends Controller
         Session::flash('message', 'Berhasil menghapus data');
         Session::flash('message-class', 'danger');
         return redirect()->route('backend.superadmin.detail');
+    }
+
+    public function pembayaran(){
+        $user = Auth::user();
+        $pembayarans = Pembayaran::all();
+        return view('backend.superadmin.pembayaran.index', ['user' => $user, 'pembayarans' => $pembayarans]);
+    }
+
+    public function pembayaranAdd(){
+        $user = Auth::user();
+        $pemesanans = Pemesanan::all();
+        return view('backend.superadmin.pembayaran.form', ['user' => $user, 'pemesanans' => $pemesanans]);
+    }
+
+    public function pembayaranAddDo(Request $request){
+        $pembayarans = new Pembayaran;
+
+        $request->validate([
+            'id_pemesanan' => 'required|numeric|unique:pembayaran',
+            'total_bayar' => 'required|numeric|min:1',
+            'tgl_pembayaran' => 'required|date',
+        ]);
+
+        $pembayarans->id_pemesanan = $request->id_pemesanan;
+        $pembayarans->total_bayar = $request->total_bayar;
+        $pembayarans->tgl_pembayaran = $request->tgl_pembayaran;
+        $pembayarans->save();
+        
+        Session::flash('message', 'Berhasil menambahkan data');
+        Session::flash('message-class', 'success');
+        return redirect()->route('backend.superadmin.pembayaran');
+    }
+
+    public function pembayaranEdit($id){
+        $user = Auth::user();
+        $pembayarans = Pembayaran::find($id);
+        if (!$pembayarans){
+            abort(404);
+        }
+        $pemesanans = Pemesanan::all();
+
+        return view('backend.superadmin.pembayaran.form', ['user' => $user, 'pembayarans' => $pembayarans, 'pemesanans' => $pemesanans]);
+    }
+
+    public function pembayaranEditDo($id, Request $request){
+        $pembayarans = Pembayaran::find($id);
+        if (!$pembayarans){
+            abort(404);
+        }
+
+        $request->validate([
+            'id_pemesanan' => ['required', 'numeric', Rule::unique('pembayaran')->ignore($pembayarans)],
+            'total_bayar' => 'required|numeric|min:1',
+            'tgl_pembayaran' => 'required|date',
+        ]);
+
+        $pembayarans->id_pemesanan = $request->id_pemesanan;
+        $pembayarans->total_bayar = $request->total_bayar;
+        $pembayarans->tgl_pembayaran = $request->tgl_pembayaran;
+        $pembayarans->save();
+        
+        Session::flash('message', 'Berhasil meng-update data');
+        Session::flash('message-class', 'warning');
+        return redirect()->route('backend.superadmin.pembayaran');
+    }
+
+    public function pembayaranDeleteDo($id){
+        Pembayaran::destroy($id);
+        
+        Session::flash('message', 'Berhasil menghapus data');
+        Session::flash('message-class', 'danger');
+        return redirect()->route('backend.superadmin.pembayaran');
     }
 
     // Admin Section

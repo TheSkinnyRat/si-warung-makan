@@ -9,6 +9,11 @@ class Pembayaran extends Model
 {
     protected $table = 'pembayaran';
     protected $primaryKey = 'id_pembayaran';
+    public $timestamps = false;
 
     use HasFactory;
+
+    public function pemesanan(){
+        return $this->belongsTo(Pemesanan::class, 'id_pemesanan');
+    }
 }

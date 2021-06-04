@@ -18,7 +18,7 @@
       <div class="container">
         <div class="row align-items-center">
           <div class="col-12 my-md-4 text-center">
-            <h1 class="h3 text-gray-800 font-weight-bold">Manajemen Detail Pemesanan</h1>
+            <h1 class="h3 text-gray-800 font-weight-bold">Manajemen Pembayaran</h1>
             <hr>
           </div>
           <div class="col-12">
@@ -26,10 +26,10 @@
               <div class="card-header py-3">
                 <div class="row align-items-center">
                   <div class="col-10">
-                    <span class="m-0 font-weight-bold text-primary">Data Detail Pemesanan</span>
+                    <span class="m-0 font-weight-bold text-primary">Data Pembayaran</span>
                   </div>
                   <div class="col-2 text-right">
-                    <a href="{{ route('backend.superadmin.detail.add') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i></a>
+                    <a href="{{ route('backend.superadmin.pembayaran.add') }}" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i></a>
                   </div>
                 </div>
               </div>
@@ -45,21 +45,21 @@
                       <tr>
                         <th>ID</th>
                         <th>Pemesanan</th>
-                        <th>Menu</th>
-                        <th>Kuantitas</th>
+                        <th>Total Bayar</th>
+                        <th>Tgl Pembayaran</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($details as $detail)
+                      @foreach ($pembayarans as $pembayaran)
                         <tr>
-                          <td>{{ $detail->id_pemesanan_detail }}</td>
-                          <td>{{ $detail->pemesanan->id_pemesanan }}-{{ $detail->pemesanan->pelanggan->nama }}</td>
-                          <td>{{ $detail->menu->menu }}</td>
-                          <td>{{ $detail->kuantitas }}</td>
+                          <td>{{ $pembayaran->id_pembayaran }}</td>
+                          <td>{{ $pembayaran->pemesanan->id_pemesanan }}-{{ $pembayaran->pemesanan->pelanggan->nama }}</td>
+                          <td>@rupiah($pembayaran->total_bayar)</td>
+                          <td>{{ $pembayaran->tgl_pembayaran }}</td>
                           <td>
-                            <a href="{{ route('backend.superadmin.detail.edit', ['id' => $detail->id_pemesanan_detail]) }}" class="btn btn-info btn-sm"><i class="far fa-edit"></i></a>
-                            <a href="{{ route('backend.superadmin.detail.delete', ['id' => $detail->id_pemesanan_detail]) }}" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
+                            <a href="{{ route('backend.superadmin.pembayaran.edit', ['id' => $pembayaran->id_pembayaran]) }}" class="btn btn-info btn-sm"><i class="far fa-edit"></i></a>
+                            <a href="{{ route('backend.superadmin.pembayaran.delete', ['id' => $pembayaran->id_pembayaran]) }}" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
                           </td>
                         </tr>
                       @endforeach
