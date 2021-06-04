@@ -9,6 +9,7 @@ class Status_list extends Model
 {
     protected $table = 'status_list';
     protected $primaryKey = 'id_status';
+    public $timestamps = false;
 
     use HasFactory;
 }

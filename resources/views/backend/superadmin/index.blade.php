@@ -27,7 +27,7 @@
                   <div class="card-footer text-muted">
                     <div class="row">
                       <div class="col">
-                        2 User Terdaftar
+                        {{ $count['users'] }} User
                       </div>
                       <div class="col">
                         <div class="text-right">
@@ -57,7 +57,7 @@
                   <div class="card-footer text-muted">
                     <div class="row">
                       <div class="col">
-                        4 Menu Aktif
+                        {{ $count['menus'] }} Menu
                       </div>
                       <div class="col">
                         <div class="text-right">
@@ -87,7 +87,7 @@
                   <div class="card-footer text-muted">
                     <div class="row">
                       <div class="col">
-                        2 Kategori Aktif
+                        {{ $count['kategoris'] }} Kategori
                       </div>
                       <div class="col">
                         <div class="text-right">
@@ -117,11 +117,41 @@
                   <div class="card-footer text-muted">
                     <div class="row">
                       <div class="col">
-                        4 Pelanggan Aktif
+                        {{ $count['pelanggans'] }} Pelanggan
                       </div>
                       <div class="col">
                         <div class="text-right">
                           <a href="{{ route('backend.superadmin.pelanggan') }}" class="btn btn-success btn-sm">
+                            Lihat Data
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6 col-xl-4 my-1">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <i class="fas fa-list-alt fa-4x"></i>
+                      </div>
+                      <div class="col">
+                        <h3 class="h3">
+                          Data Status List
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer text-muted">
+                    <div class="row">
+                      <div class="col">
+                        {{ $count['statuses'] }} Status List
+                      </div>
+                      <div class="col">
+                        <div class="text-right">
+                          <a href="{{ route('backend.superadmin.status') }}" class="btn btn-success btn-sm">
                             Lihat Data
                           </a>
                         </div>

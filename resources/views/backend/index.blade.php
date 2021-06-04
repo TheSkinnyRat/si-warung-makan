@@ -86,6 +86,11 @@
               <a class="dropdown-item" href="{{ route('backend.superadmin.kategori') }}"><i class="fas fa-folder-open"></i> Data Kategori</a>
 
               <div class="dropdown-divider"></div>
+
+              <h6 class="dropdown-header">Manajemen Pesanan</h6>
+              <a class="dropdown-item" href="{{ route('backend.superadmin.status') }}"><i class="fas fa-list-alt"></i> Data Status List</a>
+
+              <div class="dropdown-divider"></div>
               
               <h6 class="dropdown-header">Manajemen Pelanggan</h6>
               <a class="dropdown-item" href="{{ route('backend.superadmin.pelanggan') }}"><i class="fas fa-user"></i> Data Pelanggan</a>
