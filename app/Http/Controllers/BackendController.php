@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Menu_list;
 use App\Models\Kategori_menu;
 use App\Models\Pelanggan;
+use App\Models\Status_list;
 use Session;
 use Storage;
 
@@ -59,7 +60,22 @@ class BackendController extends Controller
     // SuperAdmin Section
     public function superadmin(){
         $user = Auth::user();
-        return view('backend.superadmin.index', ['user' => $user]);
+
+        $users = User::all();
+        $menus = Menu_list::all();
+        $kategoris = Kategori_menu::all();
+        $pelanggans = Pelanggan::all();
+        $statuses = Status_list::all();
+
+        $count = ([
+            'users' => $users->count(),
+            'menus' => $menus->count(),
+            'kategoris' => $kategoris->count(),
+            'pelanggans' => $pelanggans->count(),
+            'statuses' => $statuses->count(),
+        ]);
+
+        return view('backend.superadmin.index', ['user' => $user, 'count' => $count]);
     }
 
     public function user(){
@@ -377,6 +393,72 @@ class BackendController extends Controller
         Session::flash('message', 'Berhasil menghapus data');
         Session::flash('message-class', 'danger');
         return redirect()->route('backend.superadmin.pelanggan');
+    }
+
+    public function status(){
+        $user = Auth::user();
+        $statuses = Status_list::all();
+        return view('backend.superadmin.status.index', ['user' => $user, 'statuses' => $statuses]);
+    }
+
+    public function statusAdd(){
+        $user = Auth::user();
+        return view('backend.superadmin.status.form', ['user' => $user]);
+    }
+
+    public function statusAddDo(Request $request){
+        $statuses = new Status_list;
+
+        $request->validate([
+            'id_status' => 'required|numeric|min:1|unique:status_list',
+            'status' => 'required',
+        ]);
+
+        $statuses->id_status = $request->id_status;
+        $statuses->status = $request->status;
+        $statuses->save();
+        
+        Session::flash('message', 'Berhasil menambahkan data');
+        Session::flash('message-class', 'success');
+        return redirect()->route('backend.superadmin.status');
+    }
+
+    public function statusEdit($id){
+        $user = Auth::user();
+        $statuses = Status_list::find($id);
+        if (!$statuses){
+            abort(404);
+        }
+
+        return view('backend.superadmin.status.form', ['user' => $user, 'statuses' => $statuses]);
+    }
+
+    public function statusEditDo($id, Request $request){
+        $statuses = Status_list::find($id);
+        if (!$statuses){
+            abort(404);
+        }
+
+        $request->validate([
+            'id_status' => ['required', 'numeric', 'min:1', Rule::unique('status_list')->ignore($statuses)],
+            'status' => 'required',
+        ]);
+
+        $statuses->id_status = $request->id_status;
+        $statuses->status = $request->status;
+        $statuses->save();
+        
+        Session::flash('message', 'Berhasil meng-update data');
+        Session::flash('message-class', 'warning');
+        return redirect()->route('backend.superadmin.status');
+    }
+
+    public function statusDeleteDo($id){
+        Status_list::destroy($id);
+        
+        Session::flash('message', 'Berhasil menghapus data');
+        Session::flash('message-class', 'danger');
+        return redirect()->route('backend.superadmin.status');
     }
 
     // Admin Section
