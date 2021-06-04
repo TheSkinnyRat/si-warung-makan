@@ -76,7 +76,7 @@
                     <div class="form-group col-lg-3">
                       <label for="kategori">Kategori <span class="text-danger">*</span></label>
                       <select class="custom-select @error('kategori') is-invalid @enderror" name="kategori" id="kategori">
-                        <option {{ isset($menus) ? '' : 'selected' }} disabled>Pilih Kategori...</option>
+                        <option {{ isset($menus) ? '' : 'selected' }} disabled>Pilih kategori...</option>
                         @foreach ($kategoris as $kategori)
                           <option value="{{ $kategori->id_kategori }}" {{ isset($menus) && $menus->id_kategori == $kategori->id_kategori ? 'selected' : (old('kategori') == $kategori->id_kategori ? 'selected' : '') }}>{{ $kategori->kategori }}</option>
                         @endforeach

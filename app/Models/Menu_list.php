@@ -14,6 +14,6 @@ class Menu_list extends Model
     use HasFactory;
 
     public function kategori(){
-        return $this->belongsTo(Kategori_menu::class, 'id_kategori', 'id_kategori');
+        return $this->belongsTo(Kategori_menu::class, 'id_kategori');
     }
 }

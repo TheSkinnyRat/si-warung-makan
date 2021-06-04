@@ -10,7 +10,7 @@
           </div>
           <div class="col-12">
             <div class="row">
-              <div class="col-12 col-lg-6 col-xl-4 my-1">
+              <div class="col-12 col-lg-6 col-xl-4 my-2">
                 <div class="card shadow-sm h-100">
                   <div class="card-body">
                     <div class="row align-items-center">
@@ -40,7 +40,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-12 col-lg-6 col-xl-4 my-1">
+              <div class="col-12 col-lg-6 col-xl-4 my-2">
                 <div class="card shadow-sm h-100">
                   <div class="card-body">
                     <div class="row align-items-center">
@@ -70,7 +70,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-12 col-lg-6 col-xl-4 my-1">
+              <div class="col-12 col-lg-6 col-xl-4 my-2">
                 <div class="card shadow-sm h-100">
                   <div class="card-body">
                     <div class="row align-items-center">
@@ -100,7 +100,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-12 col-lg-6 col-xl-4 my-1">
+              <div class="col-12 col-lg-6 col-xl-4 my-2">
                 <div class="card shadow-sm h-100">
                   <div class="card-body">
                     <div class="row align-items-center">
@@ -130,7 +130,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-12 col-lg-6 col-xl-4 my-1">
+              <div class="col-12 col-lg-6 col-xl-4 my-2">
                 <div class="card shadow-sm h-100">
                   <div class="card-body">
                     <div class="row align-items-center">
@@ -152,6 +152,36 @@
                       <div class="col">
                         <div class="text-right">
                           <a href="{{ route('backend.superadmin.status') }}" class="btn btn-success btn-sm">
+                            Lihat Data
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6 col-xl-4 my-2">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <i class="fas fa-list-alt fa-4x"></i>
+                      </div>
+                      <div class="col">
+                        <h3 class="h3">
+                          Data Pemesanan
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer text-muted">
+                    <div class="row">
+                      <div class="col">
+                        {{ $count['pemesanans'] }} Pemesanan
+                      </div>
+                      <div class="col">
+                        <div class="text-right">
+                          <a href="{{ route('backend.superadmin.pemesanan') }}" class="btn btn-success btn-sm">
                             Lihat Data
                           </a>
                         </div>

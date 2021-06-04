@@ -108,7 +108,7 @@
       </div>
     </div>
 
-    <div id="place_load" class="container pt-3">
+    <div id="place_load" class="container pt-5">
       <div class="row">
           <div class="col-12 col-md-6">
             <div class="ph-item rounded-lg border-0 shadow-0">

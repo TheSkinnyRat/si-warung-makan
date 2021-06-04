@@ -11,6 +11,7 @@ use App\Models\Menu_list;
 use App\Models\Kategori_menu;
 use App\Models\Pelanggan;
 use App\Models\Status_list;
+use App\Models\Pemesanan;
 use Session;
 use Storage;
 
@@ -66,6 +67,7 @@ class BackendController extends Controller
         $kategoris = Kategori_menu::all();
         $pelanggans = Pelanggan::all();
         $statuses = Status_list::all();
+        $pemesanans = Pemesanan::all();
 
         $count = ([
             'users' => $users->count(),
@@ -73,6 +75,7 @@ class BackendController extends Controller
             'kategoris' => $kategoris->count(),
             'pelanggans' => $pelanggans->count(),
             'statuses' => $statuses->count(),
+            'pemesanans' => $pemesanans->count(),
         ]);
 
         return view('backend.superadmin.index', ['user' => $user, 'count' => $count]);
@@ -93,7 +96,7 @@ class BackendController extends Controller
         $users = new User;
 
         $request->validate([
-            'username' => 'required|min:5|max:100|unique:user',
+            'username' => 'required|alpha|min:5|max:100|unique:user',
             'password' => ['required', 'confirmed', Password::min(8), 'min:5', 'max:100'],
             'nama' => 'required',
             'level' => 'required|integer',
@@ -127,7 +130,7 @@ class BackendController extends Controller
         }
 
         $request->validate([
-            'username' => ['required', 'min:5', 'max:100', Rule::unique('user')->ignore($users)],
+            'username' => ['required', 'min:5', 'alpha', 'max:100', Rule::unique('user')->ignore($users)],
             'nama' => 'required',
             'level' => 'required|integer',
         ]);
@@ -333,7 +336,7 @@ class BackendController extends Controller
         $pelanggans = new Pelanggan;
 
         $request->validate([
-            'nama' => 'required|alpha',
+            'nama' => 'required|max:50',
             'email' => 'required|email|unique:pelanggan',
         ]);
 
@@ -374,7 +377,7 @@ class BackendController extends Controller
         }
 
         $request->validate([
-            'nama' => 'required|alpha',
+            'nama' => 'required|max:50',
             'email' => ['required', 'email', Rule::unique('pelanggan')->ignore($pelanggans)],
         ]);
 
@@ -459,6 +462,80 @@ class BackendController extends Controller
         Session::flash('message', 'Berhasil menghapus data');
         Session::flash('message-class', 'danger');
         return redirect()->route('backend.superadmin.status');
+    }
+
+    public function pemesanan(){
+        $user = Auth::user();
+        $pemesanans = Pemesanan::all();
+        return view('backend.superadmin.pemesanan.index', ['user' => $user, 'pemesanans' => $pemesanans]);
+    }
+
+    public function pemesananAdd(){
+        $user = Auth::user();
+        $pelanggans = Pelanggan::all();
+        $statuses = Status_list::all();
+        return view('backend.superadmin.pemesanan.form', ['user' => $user, 'pelanggans' => $pelanggans, 'statuses' => $statuses]);
+    }
+
+    public function pemesananAddDo(Request $request){
+        $pemesanans = new Pemesanan;
+
+        $request->validate([
+            'id_pelanggan' => 'required|numeric',
+            'tgl_pemesanan' => 'required|date',
+            'id_status' => 'required|numeric',
+        ]);
+
+        $pemesanans->id_pelanggan = $request->id_pelanggan;
+        $pemesanans->tgl_pemesanan = $request->tgl_pemesanan;
+        $pemesanans->id_status = $request->id_status;
+        $pemesanans->save();
+        
+        Session::flash('message', 'Berhasil menambahkan data');
+        Session::flash('message-class', 'success');
+        return redirect()->route('backend.superadmin.pemesanan');
+    }
+
+    public function pemesananEdit($id){
+        $user = Auth::user();
+        $pemesanans = Pemesanan::find($id);
+        if (!$pemesanans){
+            abort(404);
+        }
+        $pelanggans = Pelanggan::all();
+        $statuses = Status_list::all();
+
+        return view('backend.superadmin.pemesanan.form', ['user' => $user, 'pemesanans' => $pemesanans, 'pelanggans' => $pelanggans, 'statuses' => $statuses]);
+    }
+
+    public function pemesananEditDo($id, Request $request){
+        $pemesanans = Pemesanan::find($id);
+        if (!$pemesanans){
+            abort(404);
+        }
+
+        $request->validate([
+            'id_pelanggan' => 'required|numeric',
+            'tgl_pemesanan' => 'required|date',
+            'id_status' => 'required|numeric',
+        ]);
+
+        $pemesanans->id_pelanggan = $request->id_pelanggan;
+        $pemesanans->tgl_pemesanan = $request->tgl_pemesanan;
+        $pemesanans->id_status = $request->id_status;
+        $pemesanans->save();
+        
+        Session::flash('message', 'Berhasil meng-update data');
+        Session::flash('message-class', 'warning');
+        return redirect()->route('backend.superadmin.pemesanan');
+    }
+
+    public function pemesananDeleteDo($id){
+        Pemesanan::destroy($id);
+        
+        Session::flash('message', 'Berhasil menghapus data');
+        Session::flash('message-class', 'danger');
+        return redirect()->route('backend.superadmin.pemesanan');
     }
 
     // Admin Section

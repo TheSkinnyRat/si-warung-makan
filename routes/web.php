@@ -64,6 +64,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/backend/superadmin/status/edit/{id}', [BackendController::class, 'statusEdit'])->name('backend.superadmin.status.edit');
         Route::post('/backend/superadmin/status/edit/{id}/do', [BackendController::class, 'statusEditDo'])->name('backend.superadmin.status.edit.do');
         Route::get('/backend/superadmin/status/delete/{id}', [BackendController::class, 'statusDeleteDo'])->name('backend.superadmin.status.delete');
+        // Pemesanan CRUD
+        Route::get('/backend/superadmin/pemesanan', [BackendController::class, 'pemesanan'])->name('backend.superadmin.pemesanan');
+        Route::get('/backend/superadmin/pemesanan/add', [BackendController::class, 'pemesananAdd'])->name('backend.superadmin.pemesanan.add');
+        Route::post('/backend/superadmin/pemesanan/add/do', [BackendController::class, 'pemesananAddDo'])->name('backend.superadmin.pemesanan.add.do');
+        Route::get('/backend/superadmin/pemesanan/edit/{id}', [BackendController::class, 'pemesananEdit'])->name('backend.superadmin.pemesanan.edit');
+        Route::post('/backend/superadmin/pemesanan/edit/{id}/do', [BackendController::class, 'pemesananEditDo'])->name('backend.superadmin.pemesanan.edit.do');
+        Route::get('/backend/superadmin/pemesanan/delete/{id}', [BackendController::class, 'pemesananDeleteDo'])->name('backend.superadmin.pemesanan.delete');
     });
     Route::middleware(['login.check:1'])->group(function () {
         // Route untuk Admin
