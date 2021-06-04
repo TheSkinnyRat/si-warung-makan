@@ -165,7 +165,7 @@
                   <div class="card-body">
                     <div class="row align-items-center">
                       <div class="col">
-                        <i class="fas fa-list-alt fa-4x"></i>
+                        <i class="fas fa-book fa-4x"></i>
                       </div>
                       <div class="col">
                         <h3 class="h3">
@@ -182,6 +182,36 @@
                       <div class="col">
                         <div class="text-right">
                           <a href="{{ route('backend.superadmin.pemesanan') }}" class="btn btn-success btn-sm">
+                            Lihat Data
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6 col-xl-4 my-2">
+                <div class="card shadow-sm h-100">
+                  <div class="card-body">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <i class="fas fa-book-medical fa-4x"></i>
+                      </div>
+                      <div class="col">
+                        <h3 class="h3">
+                          Data Detail Pemesanan
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer text-muted">
+                    <div class="row">
+                      <div class="col">
+                        {{ $count['details'] }} Detail
+                      </div>
+                      <div class="col">
+                        <div class="text-right">
+                          <a href="{{ route('backend.superadmin.detail') }}" class="btn btn-success btn-sm">
                             Lihat Data
                           </a>
                         </div>

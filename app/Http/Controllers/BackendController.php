@@ -12,6 +12,7 @@ use App\Models\Kategori_menu;
 use App\Models\Pelanggan;
 use App\Models\Status_list;
 use App\Models\Pemesanan;
+use App\Models\Detail_pemesanan;
 use Session;
 use Storage;
 
@@ -68,6 +69,7 @@ class BackendController extends Controller
         $pelanggans = Pelanggan::all();
         $statuses = Status_list::all();
         $pemesanans = Pemesanan::all();
+        $details = Detail_pemesanan::all();
 
         $count = ([
             'users' => $users->count(),
@@ -76,6 +78,7 @@ class BackendController extends Controller
             'pelanggans' => $pelanggans->count(),
             'statuses' => $statuses->count(),
             'pemesanans' => $pemesanans->count(),
+            'details' => $details->count(),
         ]);
 
         return view('backend.superadmin.index', ['user' => $user, 'count' => $count]);
@@ -536,6 +539,80 @@ class BackendController extends Controller
         Session::flash('message', 'Berhasil menghapus data');
         Session::flash('message-class', 'danger');
         return redirect()->route('backend.superadmin.pemesanan');
+    }
+
+    public function detail(){
+        $user = Auth::user();
+        $details = Detail_pemesanan::all();
+        return view('backend.superadmin.detail.index', ['user' => $user, 'details' => $details]);
+    }
+
+    public function detailAdd(){
+        $user = Auth::user();
+        $pemesanans = Pemesanan::all();
+        $menus = Menu_list::all();
+        return view('backend.superadmin.detail.form', ['user' => $user, 'pemesanans' => $pemesanans, 'menus' => $menus]);
+    }
+
+    public function detailAddDo(Request $request){
+        $details = new Detail_pemesanan;
+
+        $request->validate([
+            'id_pemesanan' => 'required|numeric',
+            'id_menu' => 'required|numeric',
+            'kuantitas' => 'required|numeric|min:1|max:100',
+        ]);
+
+        $details->id_pemesanan = $request->id_pemesanan;
+        $details->id_menu = $request->id_menu;
+        $details->kuantitas = $request->kuantitas;
+        $details->save();
+        
+        Session::flash('message', 'Berhasil menambahkan data');
+        Session::flash('message-class', 'success');
+        return redirect()->route('backend.superadmin.detail');
+    }
+
+    public function detailEdit($id){
+        $user = Auth::user();
+        $details = Detail_pemesanan::find($id);
+        if (!$details){
+            abort(404);
+        }
+        $pemesanans = Pemesanan::all();
+        $menus = Menu_list::all();
+
+        return view('backend.superadmin.detail.form', ['user' => $user, 'details' => $details, 'pemesanans' => $pemesanans, 'menus' => $menus]);
+    }
+
+    public function detailEditDo($id, Request $request){
+        $details = Detail_pemesanan::find($id);
+        if (!$details){
+            abort(404);
+        }
+
+        $request->validate([
+            'id_pemesanan' => 'required|numeric',
+            'id_menu' => 'required|numeric',
+            'kuantitas' => 'required|numeric|min:1|max:100',
+        ]);
+
+        $details->id_pemesanan = $request->id_pemesanan;
+        $details->id_menu = $request->id_menu;
+        $details->kuantitas = $request->kuantitas;
+        $details->save();
+        
+        Session::flash('message', 'Berhasil meng-update data');
+        Session::flash('message-class', 'warning');
+        return redirect()->route('backend.superadmin.detail');
+    }
+
+    public function detailDeleteDo($id){
+        Detail_pemesanan::destroy($id);
+        
+        Session::flash('message', 'Berhasil menghapus data');
+        Session::flash('message-class', 'danger');
+        return redirect()->route('backend.superadmin.detail');
     }
 
     // Admin Section
