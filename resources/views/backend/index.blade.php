@@ -97,6 +97,11 @@
               
               <h6 class="dropdown-header">Manajemen Pelanggan</h6>
               <a class="dropdown-item" href="{{ route('backend.superadmin.pelanggan') }}"><i class="fas fa-user"></i> Data Pelanggan</a>
+
+              <div class="dropdown-divider"></div>
+              
+              <h6 class="dropdown-header">Generate Laporan</h6>
+              <a class="dropdown-item" href="{{ route('backend.superadmin.laporan') }}"><i class="fas fa-clipboard-list"></i> Laporan</a>
 		        </div>
 		      </li>
 		      <li class="nav-item p-1 p-lg-0">

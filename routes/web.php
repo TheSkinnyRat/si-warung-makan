@@ -85,6 +85,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/backend/superadmin/pembayaran/edit/{id}', [BackendController::class, 'pembayaranEdit'])->name('backend.superadmin.pembayaran.edit');
         Route::post('/backend/superadmin/pembayaran/edit/{id}/do', [BackendController::class, 'pembayaranEditDo'])->name('backend.superadmin.pembayaran.edit.do');
         Route::get('/backend/superadmin/pembayaran/delete/{id}', [BackendController::class, 'pembayaranDeleteDo'])->name('backend.superadmin.pembayaran.delete');
+        // Generate Laporan
+        Route::get('/backend/superadmin/laporan', [BackendController::class, 'laporan'])->name('backend.superadmin.laporan');
+        Route::post('/backend/superadmin/laporan/generate/do', [BackendController::class, 'laporanGenerateDo'])->name('backend.superadmin.laporan.generate.do');
     });
     Route::middleware(['login.check:1'])->group(function () {
         // Route untuk Admin

@@ -473,7 +473,9 @@ class BackendController extends Controller
     public function pemesanan(){
         $user = Auth::user();
         $pemesanans = Pemesanan::all();
-        return view('backend.superadmin.pemesanan.index', ['user' => $user, 'pemesanans' => $pemesanans]);
+        $details = Detail_pemesanan::all();
+        $pembayarans = Pembayaran::all();
+        return view('backend.superadmin.pemesanan.index', ['user' => $user, 'pemesanans' => $pemesanans, 'details' => $details, 'pembayarans' => $pembayarans]);
     }
 
     public function pemesananAdd(){
@@ -563,7 +565,7 @@ class BackendController extends Controller
         $request->validate([
             'id_pemesanan' => 'required|numeric',
             'id_menu' => 'required|numeric',
-            'kuantitas' => 'required|numeric|min:1|max:100',
+            'kuantitas' => 'required|numeric|min:1|max:500',
         ]);
 
         $details->id_pemesanan = $request->id_pemesanan;
@@ -597,7 +599,7 @@ class BackendController extends Controller
         $request->validate([
             'id_pemesanan' => 'required|numeric',
             'id_menu' => 'required|numeric',
-            'kuantitas' => 'required|numeric|min:1|max:100',
+            'kuantitas' => 'required|numeric|min:1|max:500',
         ]);
 
         $details->id_pemesanan = $request->id_pemesanan;
@@ -688,6 +690,25 @@ class BackendController extends Controller
         Session::flash('message', 'Berhasil menghapus data');
         Session::flash('message-class', 'danger');
         return redirect()->route('backend.superadmin.pembayaran');
+    }
+
+    public function laporan(){
+        $user = Auth::user();
+        return view('backend.superadmin.laporan.index', ['user' => $user]);
+    }
+
+    public function laporanGenerateDo(Request $request){
+        $user = Auth::user();
+
+        $request->validate([
+            'tgl_awal' => 'required|date',
+            'tgl_akhir' => 'required|date|after_or_equal:tgl_awal',
+        ]);
+
+        $pembayarans = Pembayaran::all()->where('tgl_pembayaran', '>=', $request->tgl_awal)->where('tgl_pembayaran', '<=', $request->tgl_akhir);
+        $details = Detail_pemesanan::all();
+
+        return view('backend.superadmin.laporan.generate', ['user' => $user, 'pembayarans' => $pembayarans, 'details' => $details, 'request' => $request]);
     }
 
     // Admin Section

@@ -46,6 +46,8 @@
                         <th>ID</th>
                         <th>Pelanggan</th>
                         <th>Tgl Pemesanan</th>
+                        <th>Detail</th>
+                        <th>Total Bayar</th>
                         <th>Status</th>
                         <th>Action</th>
                       </tr>
@@ -56,6 +58,22 @@
                           <td>{{ $pemesanan->id_pemesanan }}</td>
                           <td>{{ $pemesanan->pelanggan->nama }}</td>
                           <td>{{ $pemesanan->tgl_pemesanan }}</td>
+                          <td>
+                            @if ($details->where('id_pemesanan', $pemesanan->id_pemesanan)->first())
+                              @foreach ($details->where('id_pemesanan', $pemesanan->id_pemesanan) as $detail)
+                                {{ $detail->menu->menu }}: {{ $detail->kuantitas }} <br>
+                              @endforeach
+                            @else
+                              -
+                            @endif
+                          </td>
+                          <td>
+                            @if ($pembayarans->where('id_pemesanan', $pemesanan->id_pemesanan)->first())
+                              @rupiah($pembayarans->where('id_pemesanan', $pemesanan->id_pemesanan)->first()->total_bayar)
+                            @else
+                              -
+                            @endif
+                          </td>
                           <td>{{ $pemesanan->status->status }}</td>
                           <td>
                             <a href="{{ route('backend.superadmin.pemesanan.edit', ['id' => $pemesanan->id_pemesanan]) }}" class="btn btn-info btn-sm"><i class="far fa-edit"></i></a>
