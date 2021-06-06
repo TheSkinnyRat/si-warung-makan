@@ -74,7 +74,7 @@
 		    <hr class="d-lg-none m-0">
 		    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
           <li class="nav-item p-1 p-lg-0">
-		        <a href="pages/pesanan_status.html" class="">
+		        <a href="{{ route('home.status') }}" class="">
 		          <button class="btn btn-link text-decoration-none mr-1 btn-sm" type="button">
 		            <i class="fas fa-info-circle"></i> Status Pesanan
 		          </button>

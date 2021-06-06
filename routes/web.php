@@ -19,8 +19,11 @@ use App\Http\Controllers\BackendController;
 //     return view('index');
 // });
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/error', [HomeController::class, 'error'])->name('error');
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/kategori/{id}', [HomeController::class, 'kategori'])->name('home.kategori');
+Route::get('/status', [HomeController::class, 'status'])->name('home.status');
 
 Route::get('/backend/login', [BackendController::class, 'login'])->name('backend.login');
 Route::post('/backend/login/do', [BackendController::class, 'loginDo'])->name('backend.login.do');
