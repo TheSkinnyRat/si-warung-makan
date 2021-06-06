@@ -54,7 +54,7 @@
                   </ul>
                   <hr>
                 @endforeach
-                <b>Total Penjualan: {{ count($pembayarans) }}</b> <br>
+                <b>Total Pemesanan: {{ count($pembayarans) }}</b> <br>
                 <b>Total Pembayaran: @rupiah($count)</b>
               </div>
             </div>
