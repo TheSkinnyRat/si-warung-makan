@@ -59,13 +59,11 @@
                           <td>{{ $pemesanan->pelanggan->nama }}</td>
                           <td>{{ $pemesanan->tgl_pemesanan }}</td>
                           <td>
-                            @if ($details->where('id_pemesanan', $pemesanan->id_pemesanan)->first())
-                              @foreach ($details->where('id_pemesanan', $pemesanan->id_pemesanan) as $detail)
-                                {{ $detail->menu->menu }}: {{ $detail->kuantitas }} <br>
-                              @endforeach
-                            @else
+                            @forelse ($details->where('id_pemesanan', $pemesanan->id_pemesanan) as $detail)
+                              {{ $detail->menu->menu }}: {{ $detail->kuantitas }} <br>
+                            @empty
                               -
-                            @endif
+                            @endforelse
                           </td>
                           <td>
                             @if ($pembayarans->where('id_pemesanan', $pemesanan->id_pemesanan)->first())

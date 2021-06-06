@@ -716,5 +716,74 @@ class BackendController extends Controller
         $user = Auth::user();
         return view('backend.admin.index', ['user' => $user]);
     }
-    
+
+    public function bayar(){
+        $user = Auth::user();
+
+        $pemesanans = Pemesanan::where('id_status', 3)->orderBy('tgl_pemesanan')->get();
+        $details = Detail_pemesanan::all();
+        $pembayarans = Pembayaran::all();
+
+        return view('backend.admin.bayar.index', ['user' => $user, 'pemesanans' => $pemesanans, 'details' => $details, 'pembayarans' => $pembayarans]);
+    }
+
+    public function bayarDo($id){
+        $pemesanans = Pemesanan::find($id);
+        if (!$pemesanans || $pemesanans->id_status != 3){
+            abort(404);
+        }
+
+        $pemesanans->id_status = 4;
+        $pemesanans->save();
+        
+        Session::flash('message', 'Berhasil menerima pembayaran dengan id pesanan '.$pemesanans->id_pemesanan);
+        Session::flash('message-class', 'success');
+        return redirect()->route('backend.admin.bayar');
+    }
+
+    public function proses(){
+        $user = Auth::user();
+
+        $pemesanans = Pemesanan::where('id_status', 4)->orderBy('tgl_pemesanan')->get();
+        $details = Detail_pemesanan::all();
+
+        return view('backend.admin.proses.index', ['user' => $user, 'pemesanans' => $pemesanans, 'details' => $details]);
+    }
+
+    public function prosesDo($id){
+        $pemesanans = Pemesanan::find($id);
+        if (!$pemesanans || $pemesanans->id_status != 4){
+            abort(404);
+        }
+
+        $pemesanans->id_status = 5;
+        $pemesanans->save();
+        
+        Session::flash('message', 'Berhasil memproses pesanan dengan id pesanan '.$pemesanans->id_pemesanan);
+        Session::flash('message-class', 'success');
+        return redirect()->route('backend.admin.proses');
+    }
+
+    public function selesai(){
+        $user = Auth::user();
+
+        $pemesanans = Pemesanan::where('id_status', 5)->orderBy('tgl_pemesanan')->get();
+        $details = Detail_pemesanan::all();
+
+        return view('backend.admin.selesai.index', ['user' => $user, 'pemesanans' => $pemesanans, 'details' => $details]);
+    }
+
+    public function selesaiDo($id){
+        $pemesanans = Pemesanan::find($id);
+        if (!$pemesanans || $pemesanans->id_status != 5){
+            abort(404);
+        }
+
+        $pemesanans->id_status = 6;
+        $pemesanans->save();
+        
+        Session::flash('message', 'Berhasil menyelesaikan pesanan dengan id pesanan '.$pemesanans->id_pemesanan);
+        Session::flash('message-class', 'success');
+        return redirect()->route('backend.admin.selesai');
+    }
 }

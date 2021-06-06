@@ -92,6 +92,15 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['login.check:1'])->group(function () {
         // Route untuk Admin
         Route::get('/backend/admin', [BackendController::class, 'admin'])->name('backend.admin');
+        // Pembayaran
+        Route::get('/backend/admin/bayar', [BackendController::class, 'bayar'])->name('backend.admin.bayar');
+        Route::get('/backend/admin/bayar/{id}/do', [BackendController::class, 'bayarDo'])->name('backend.admin.bayar.do');
+        // Proses
+        Route::get('/backend/admin/proses', [BackendController::class, 'proses'])->name('backend.admin.proses');
+        Route::get('/backend/admin/proses/{id}/do', [BackendController::class, 'prosesDo'])->name('backend.admin.proses.do');
+        // Selesai
+        Route::get('/backend/admin/selesai', [BackendController::class, 'selesai'])->name('backend.admin.selesai');
+        Route::get('/backend/admin/selesai/{id}/do', [BackendController::class, 'selesaiDo'])->name('backend.admin.selesai.do');
     });
     // Route untuk semua login
     Route::get('/backend/logout', [BackendController::class, 'logout'])->name('backend.logout');

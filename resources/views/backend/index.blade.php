@@ -71,39 +71,41 @@
 		  <div class="collapse navbar-collapse" id="navToggler1">
 		    <hr class="d-lg-none m-0">
 		    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-          <li class="nav-item p-1 p-lg-0 dropdown">
-		        <a class="btn btn-link text-decoration-none mr-1 btn-sm dropdown-toggle" href="#" id="menu_about" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          <i class="fas fa-sliders-h"></i> Manajemen Data
-		        </a>
-		        <div class="dropdown-menu keep-open dropdown-menu-right animated--grow-in shadow-sm ml-2 ml-lg-0" aria-labelledby="menu_about">
-              <h6 class="dropdown-header">Manajemen User</h6>
-		          <a class="dropdown-item" href="{{ route('backend.superadmin.user') }}"><i class="fas fa-users"></i> Data User</a>
+          @if ($user->level == 0)
+            <li class="nav-item p-1 p-lg-0 dropdown">
+              <a class="btn btn-link text-decoration-none mr-1 btn-sm dropdown-toggle" href="#" id="menu_about" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-sliders-h"></i> Manajemen Data
+              </a>
+              <div class="dropdown-menu keep-open dropdown-menu-right animated--grow-in shadow-sm ml-2 ml-lg-0" aria-labelledby="menu_about">
+                <h6 class="dropdown-header">Manajemen User</h6>
+                <a class="dropdown-item" href="{{ route('backend.superadmin.user') }}"><i class="fas fa-users"></i> Data User</a>
 
-              <div class="dropdown-divider"></div>
+                <div class="dropdown-divider"></div>
 
-              <h6 class="dropdown-header">Manajemen Menu</h6>
-              <a class="dropdown-item" href="{{ route('backend.superadmin.menu') }}"><i class="fas fa-hamburger"></i> Data Menu</a>
-              <a class="dropdown-item" href="{{ route('backend.superadmin.kategori') }}"><i class="fas fa-folder-open"></i> Data Kategori</a>
+                <h6 class="dropdown-header">Manajemen Menu</h6>
+                <a class="dropdown-item" href="{{ route('backend.superadmin.menu') }}"><i class="fas fa-hamburger"></i> Data Menu</a>
+                <a class="dropdown-item" href="{{ route('backend.superadmin.kategori') }}"><i class="fas fa-folder-open"></i> Data Kategori</a>
 
-              <div class="dropdown-divider"></div>
+                <div class="dropdown-divider"></div>
 
-              <h6 class="dropdown-header">Manajemen Pesanan</h6>
-              <a class="dropdown-item" href="{{ route('backend.superadmin.status') }}"><i class="fas fa-list-alt"></i> Data Status List</a>
-              <a class="dropdown-item" href="{{ route('backend.superadmin.pemesanan') }}"><i class="fas fa-book"></i> Data Pemesanan</a>
-              <a class="dropdown-item" href="{{ route('backend.superadmin.detail') }}"><i class="fas fa-book-medical"></i> Data Detail Pemesanan</a>
-              <a class="dropdown-item" href="{{ route('backend.superadmin.pembayaran') }}"><i class="fas fa-money-check-alt"></i> Data Pembayaran</a>
+                <h6 class="dropdown-header">Manajemen Pesanan</h6>
+                <a class="dropdown-item" href="{{ route('backend.superadmin.status') }}"><i class="fas fa-list-alt"></i> Data Status List</a>
+                <a class="dropdown-item" href="{{ route('backend.superadmin.pemesanan') }}"><i class="fas fa-book"></i> Data Pemesanan</a>
+                <a class="dropdown-item" href="{{ route('backend.superadmin.detail') }}"><i class="fas fa-book-medical"></i> Data Detail Pemesanan</a>
+                <a class="dropdown-item" href="{{ route('backend.superadmin.pembayaran') }}"><i class="fas fa-money-check-alt"></i> Data Pembayaran</a>
 
-              <div class="dropdown-divider"></div>
-              
-              <h6 class="dropdown-header">Manajemen Pelanggan</h6>
-              <a class="dropdown-item" href="{{ route('backend.superadmin.pelanggan') }}"><i class="fas fa-user"></i> Data Pelanggan</a>
+                <div class="dropdown-divider"></div>
+                
+                <h6 class="dropdown-header">Manajemen Pelanggan</h6>
+                <a class="dropdown-item" href="{{ route('backend.superadmin.pelanggan') }}"><i class="fas fa-user"></i> Data Pelanggan</a>
 
-              <div class="dropdown-divider"></div>
-              
-              <h6 class="dropdown-header">Generate Laporan</h6>
-              <a class="dropdown-item" href="{{ route('backend.superadmin.laporan') }}"><i class="fas fa-clipboard-list"></i> Laporan</a>
-		        </div>
-		      </li>
+                <div class="dropdown-divider"></div>
+                
+                <h6 class="dropdown-header">Generate Laporan</h6>
+                <a class="dropdown-item" href="{{ route('backend.superadmin.laporan') }}"><i class="fas fa-clipboard-list"></i> Laporan</a>
+              </div>
+            </li>
+          @endif
 		      <li class="nav-item p-1 p-lg-0">
 		        <a href="admin_login.html" class="">
 		          <a href="{{ route('backend.logout') }}" class="btn btn-link text-decoration-none mr-1 btn-sm">

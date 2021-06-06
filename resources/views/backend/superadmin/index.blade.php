@@ -5,7 +5,7 @@
       <div class="container">
         <div class="row align-items-center">
           <div class="col-12 my-md-4 text-center">
-            <h1 class="h3 text-gray-800 font-weight-bold">Admin Panel - {{ $user->nama }}</h1>
+            <h1 class="h3 text-gray-800 font-weight-bold">Owner Panel - {{ $user->nama }}</h1>
             <hr>
           </div>
           <div class="col-12">
