@@ -45,17 +45,17 @@ Program source code for SI Warung Makan Project [RPL B - 2021].
     - [x] ~~CRUD User~~
     - [x] ~~CRUD Menu~~
     - [x] ~~CRUD Kategori~~
-    - [ ] CRUD Status
+    - [x] ~~CRUD Status~~
     - [x] ~~CRUD Pelanggan~~
-    - [ ] Manajemen Pesanan
-    - [ ] Generate Laporan
+    - [x] ~~Manajemen Pesanan~~
+    - [x] ~~Generate Laporan~~
 - Admin
-    - [ ] Manajemen Pesanan
+    - [x] ~~Manajemen Pesanan~~
 
 **Frontend**
-- [ ] Sistem Pendaftaran
+- [x] ~~Sistem Pendaftaran~~
 - [ ] Sistem Pemesanan
-- [ ] Status Pesanan
+- [x] ~~Status Pesanan~~
 
 ## Find a bug or something wrong ?
 **[Open issue !](https://github.com/TheSkinnyRat/si-warung-makan/issues)**
