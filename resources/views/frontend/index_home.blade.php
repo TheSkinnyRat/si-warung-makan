@@ -81,7 +81,7 @@
               </a>
             </li>
             <li class="nav-item p-1 p-lg-0">
-              <a href="pages/pelanggan_daftar.html" class="">
+              <a href="{{ route('home.register') }}" class="">
                 <button class="btn btn-link text-decoration-none mr-1 btn-sm" type="button">
                   <i class="fas fa-address-book"></i> Daftar Pelanggan
                 </button>

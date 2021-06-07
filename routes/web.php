@@ -25,6 +25,17 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/kategori/{id}', [HomeController::class, 'kategori'])->name('home.kategori');
 Route::get('/status', [HomeController::class, 'status'])->name('home.status');
 
+Route::get('/register', [HomeController::class, 'register'])->name('home.register');
+Route::post('/register/do', [HomeController::class, 'registerDo'])->name('home.register.do');
+Route::get('/login', [HomeController::class, 'login'])->name('home.login');
+Route::post('/login/do', [HomeController::class, 'loginDo'])->name('home.login.do');
+
+Route::middleware(['pelanggan.check'])->group(function () {
+    // Route untuk Pelanggan
+    Route::get('/pelanggan', [HomeController::class, 'pelanggan'])->name('home.pelanggan');
+    Route::get('/pelanggan/logout', [HomeController::class, 'logout'])->name('home.pelanggan.logout');
+});
+
 Route::get('/backend/login', [BackendController::class, 'login'])->name('backend.login');
 Route::post('/backend/login/do', [BackendController::class, 'loginDo'])->name('backend.login.do');
 

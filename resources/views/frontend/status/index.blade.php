@@ -11,7 +11,7 @@
         <div class="row align-items-center justify-content-center">
           <div class="col-12 my-md-4 text-center">
             <h1 class="h3 text-gray-800 font-weight-bold">Status Pesanan Saat Ini</h1>
-            <p class="m-0">Diperbarui Setiap 30 Detik</p>
+            <p class="m-0">Diperbarui setiap 30 detik, terakhir diperbarui {{ date('H:i') }}</p>
             <a href="{{ route('home') }}">Halaman Utama</a>
             <hr>
           </div>
