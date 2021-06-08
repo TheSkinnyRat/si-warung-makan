@@ -33,6 +33,11 @@ Route::post('/login/do', [HomeController::class, 'loginDo'])->name('home.login.d
 Route::middleware(['pelanggan.check'])->group(function () {
     // Route untuk Pelanggan
     Route::get('/pelanggan', [HomeController::class, 'pelanggan'])->name('home.pelanggan');
+    Route::get('/pelanggan/pesan', [HomeController::class, 'pesan'])->name('home.pelanggan.pesan');
+    Route::get('/pelanggan/pesan/do', [HomeController::class, 'pesanDo'])->name('home.pelanggan.pesan.do');
+    Route::get('/pelanggan/pesan/kategori/{id}', [HomeController::class, 'pesanKategori'])->name('home.pelanggan.pesan.kategori');
+    Route::get('/pelanggan/riwayat', [HomeController::class, 'riwayat'])->name('home.pelanggan.riwayat');
+    Route::get('/pelanggan/riwayat/nota/{id}', [HomeController::class, 'nota'])->name('home.pelanggan.riwayat.nota');
     Route::get('/pelanggan/logout', [HomeController::class, 'logout'])->name('home.pelanggan.logout');
 });
 

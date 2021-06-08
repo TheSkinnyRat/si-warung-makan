@@ -1,11 +1,11 @@
-@extends('frontend.index')
+@extends('frontend.index_home')
 @section('main-content-page')
   <div id="main_content" style="display: none;" class="h-100">
     <section id="secHeader" class="row h-75 my-3 my-md-0">
       <div class="container">
-        <div class="row my-md-4 justify-content-center">
+        <div class="row my-md-4 pt-5 justify-content-center">
           <div class="col">
-            <h1 class="h3 text-gray-800 font-weight-bold text-center">Selamat Datang, Mau Pesan Apa?</h1>
+            <h1 class="h3 text-gray-800 font-weight-bold text-center">{{ $pelanggans->nama }}, <br class="d-lg-none">Mau Pesan Apa?</h1>
             <hr>
             <div class="row justify-content-center">
               <div class="col-12 text-center mb-2">
@@ -14,9 +14,9 @@
                     {{ $kategori_name ?? 'Kategori' }}
                   </button>
                   <div class="dropdown-menu" aria-labelledby="btnKategori">
-                    <a class="dropdown-item" href="{{ route('home') }}">Tampilkan Semua</a>
+                    <a class="dropdown-item" href="{{ route('home.pelanggan.pesan') }}">Tampilkan Semua</a>
                     @foreach ($kategoris as $kategori)
-                      <a class="dropdown-item" href="{{ route('home.kategori', ['id' => $kategori->id_kategori]) }}">{{ $kategori->kategori }}</a>
+                      <a class="dropdown-item" href="{{ route('home.pelanggan.pesan.kategori', ['id' => $kategori->id_kategori]) }}">{{ $kategori->kategori }}</a>
                     @endforeach
                   </div>
                 </div>
@@ -38,7 +38,7 @@
                           </div>
                           <div class="col-6">
                             @if ($menu->status == 0)
-                              <a href="{{ route('home.login') }}" class="btn btn-success btn-sm btn-block">Pesan</a>
+                              <a href="#" class="btn btn-success btn-sm btn-block">Pesan</a>
                             @elseif ($menu->status == 1)
                               <a href="#" class="btn btn-danger btn-sm btn-block disabled">Stok Habis</a>
                             @else
