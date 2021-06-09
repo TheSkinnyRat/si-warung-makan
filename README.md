@@ -54,7 +54,7 @@ Program source code for SI Warung Makan Project [RPL B - 2021].
 
 **Frontend**
 - [x] ~~Sistem Pendaftaran~~
-- [ ] Sistem Pemesanan
+- [x] ~~Sistem Pemesanan~~
 - [x] ~~Status Pesanan~~
 
 ## Find a bug or something wrong ?
