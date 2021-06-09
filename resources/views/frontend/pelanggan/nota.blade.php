@@ -7,6 +7,7 @@
         <div class="row align-items-center justify-content-center">
           <div class="col-12 my-md-4 text-center">
             <h1 class="h3 text-gray-800 font-weight-bold">Nota Pesanan</h1>
+            <a href="{{ route('home.pelanggan.riwayat') }}">Lihat riwayat</a>
             <hr>
           </div>
           <div class="col-lg-6">

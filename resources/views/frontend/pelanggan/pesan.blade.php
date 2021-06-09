@@ -25,7 +25,7 @@
                     @endforeach
                   </div>
                   @if ($count['pesanan'] > 0)
-                    <a href="#" class="btn btn-success btn-sm">Lanjutkan <i class="fas fa-arrow-right"></i></a>
+                    <a href="{{ route('home.pelanggan.pesanan') }}" class="btn btn-success btn-sm">Lanjutkan <i class="fas fa-arrow-right"></i></a>
                   @endif
                 </div>
               </div>

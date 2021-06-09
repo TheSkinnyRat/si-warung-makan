@@ -40,6 +40,16 @@ Route::middleware(['pelanggan.check'])->group(function () {
     Route::get('/pelanggan/pesan/add/{id}', [HomeController::class, 'pesanAdd'])->name('home.pelanggan.pesan.add');
     Route::post('/pelanggan/pesan/add/{id}/do', [HomeController::class, 'pesanAddDo'])->name('home.pelanggan.pesan.add.do');
     Route::get('/pelanggan/pesan/delete/{id}/do', [HomeController::class, 'pesanDeleteDo'])->name('home.pelanggan.pesan.delete.do');
+    // Pesanan
+    Route::get('/pelanggan/pesanan', [HomeController::class, 'pesanan'])->name('home.pelanggan.pesanan');
+    Route::get('/pelanggan/pesanan/do', [HomeController::class, 'pesananDo'])->name('home.pelanggan.pesanan.do');
+    Route::get('/pelanggan/pesanan/delete/do', [HomeController::class, 'pesananDeleteDo'])->name('home.pelanggan.pesanan.delete.do');
+    // Checkout
+    Route::get('/pelanggan/checkout/{id}', [HomeController::class, 'checkout'])->name('home.pelanggan.checkout');
+    Route::get('/pelanggan/checkout/{id}/do', [HomeController::class, 'checkoutDo'])->name('home.pelanggan.checkout.do');
+    Route::get('/pelanggan/checkout/delete/{id}/do', [HomeController::class, 'checkoutDeleteDo'])->name('home.pelanggan.checkout.delete.do');
+    // Bayar
+    Route::get('/pelanggan/bayar/{id}', [HomeController::class, 'bayar'])->name('home.pelanggan.bayar');
     // Riwayat
     Route::get('/pelanggan/riwayat', [HomeController::class, 'riwayat'])->name('home.pelanggan.riwayat');
     Route::get('/pelanggan/riwayat/nota/{id}', [HomeController::class, 'nota'])->name('home.pelanggan.riwayat.nota');

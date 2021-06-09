@@ -735,6 +735,11 @@ class BackendController extends Controller
 
         $pemesanans->id_status = 4;
         $pemesanans->save();
+
+        $pembayarans = Pembayaran::where('id_pemesanan', $pemesanans->id_pemesanan)->first();
+        $pembayaran = Pembayaran::find($pembayarans->id_pembayaran);
+        $pembayaran->tgl_pembayaran = now();
+        $pembayaran->save();
         
         Session::flash('message', 'Berhasil menerima pembayaran dengan id pesanan '.$pemesanans->id_pemesanan);
         Session::flash('message-class', 'success');

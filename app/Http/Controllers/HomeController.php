@@ -267,6 +267,105 @@ class HomeController extends Controller
         return redirect()->route('home.pelanggan.pesan');
     }
 
+    public function pesanan(){
+        $pelanggans = Session::get('pelanggans');
+        $pemesanans = Pemesanan::where('id_pelanggan', $pelanggans->id_pelanggan)->where('id_status', 1)->get();
+        if ($pemesanans->isEmpty()){
+            abort(404);
+        }
+        $details = Detail_pemesanan::where('id_pemesanan', $pemesanans->first()->id_pemesanan)->get();
+
+        return view('frontend.pelanggan.pesanan', ['pelanggans' => $pelanggans, 'details' => $details]);
+    }
+
+    public function pesananDo(){
+        $pelanggans = Session::get('pelanggans');
+        $pemesanans = Pemesanan::where('id_pelanggan', $pelanggans->id_pelanggan)->where('id_status', 1)->get();
+        if ($pemesanans->isEmpty()){
+            abort(404);
+        }
+        $detail = Detail_pemesanan::where('id_pemesanan', $pemesanans->first()->id_pemesanan)->first();
+        if (!$detail){
+            abort(404);
+        }
+        $pemesanan = Pemesanan::find($pemesanans->first()->id_pemesanan);
+        $pemesanan->id_status = 2;
+        $pemesanan->tgl_pemesanan = now();
+        $pemesanan->save();
+
+        return redirect()->route('home.pelanggan.checkout', ['id' => $pemesanans->first()->id_pemesanan]);
+    }
+
+    public function pesananDeleteDo(){
+        $pelanggans = Session::get('pelanggans');
+        $pemesanans = Pemesanan::where('id_pelanggan', $pelanggans->id_pelanggan)->where('id_status', 1)->get();
+        if ($pemesanans->isEmpty()){
+            abort(404);
+        }
+        Pemesanan::destroy($pemesanans->first()->id_pemesanan);
+
+        Session::flash('message', 'Berhasil menghapus pesanan');
+        Session::flash('message-class', 'danger');
+        return redirect()->route('home.pelanggan');
+    }
+
+    public function checkout($id){
+        $pelanggans = Session::get('pelanggans');
+        $pemesanans = Pemesanan::find($id);
+        if (!$pemesanans || $pemesanans->id_status != 2 || $pemesanans->id_pelanggan != $pelanggans->id_pelanggan){
+            abort(404);
+        }
+        $details = Detail_pemesanan::where('id_pemesanan', $pemesanans->id_pemesanan)->get();
+
+        return view('frontend.pelanggan.checkout', ['pelanggans' => $pelanggans, 'pemesanans' => $pemesanans, 'details' => $details]);
+    }
+
+    public function checkoutDo($id){
+        $pelanggans = Session::get('pelanggans');
+        $pemesanans = Pemesanan::find($id);
+        if (!$pemesanans || $pemesanans->id_status != 2 || $pemesanans->id_pelanggan != $pelanggans->id_pelanggan){
+            abort(404);
+        }
+        $pemesanans->id_status = 3;
+        $pemesanans->save();
+
+        $details = Detail_pemesanan::where('id_pemesanan', $pemesanans->id_pemesanan)->get();
+        $total_bayar = 0;
+        foreach ($details as $detail){
+            $total_bayar += $detail->menu->harga*$detail->kuantitas;
+        }
+        $pembayarans = new Pembayaran;
+        $pembayarans->id_pemesanan = $pemesanans->id_pemesanan;
+        $pembayarans->total_bayar = $total_bayar;
+        $pembayarans->save();
+
+        return redirect()->route('home.pelanggan.bayar', ['id' => $pemesanans->id_pemesanan]);
+    }
+
+    public function checkoutDeleteDo($id){
+        $pelanggans = Session::get('pelanggans');
+        $pemesanans = Pemesanan::find($id);
+        if (!$pemesanans || $pemesanans->id_status != 2 || $pemesanans->id_pelanggan != $pelanggans->id_pelanggan){
+            abort(404);
+        }
+        Pemesanan::destroy($pemesanans->id_pemesanan);
+
+        Session::flash('message', 'Berhasil menghapus pesanan');
+        Session::flash('message-class', 'danger');
+        return redirect()->route('home.pelanggan');
+    }
+
+    public function bayar($id){
+        $pelanggans = Session::get('pelanggans');
+        $pemesanans = Pemesanan::find($id);
+        if (!$pemesanans || $pemesanans->id_status < 3 || $pemesanans->id_status > 5 || $pemesanans->id_pelanggan != $pelanggans->id_pelanggan){
+            abort(404);
+        }
+        $details = Detail_pemesanan::where('id_pemesanan', $pemesanans->id_pemesanan)->get();
+
+        return view('frontend.pelanggan.bayar', ['pelanggans' => $pelanggans, 'pemesanans' => $pemesanans, 'details' => $details]);
+    }
+
     public function riwayat(){
         $pelanggans = Session::get('pelanggans');
         $pemesanans = Pemesanan::where('id_pelanggan', $pelanggans->id_pelanggan)->get();
@@ -278,7 +377,7 @@ class HomeController extends Controller
 
     public function nota($id){
         $pelanggans = Session::get('pelanggans');
-        $pembayarans = Pembayaran::find($id);
+        $pembayarans = Pembayaran::where('id_pemesanan', $id)->first();
         if (!$pembayarans || $pembayarans->pemesanan->id_pelanggan != $pelanggans->id_pelanggan || $pembayarans->pemesanan->id_status < 4 || $pembayarans->pemesanan->id_status == 7){
             abort(404);
         }

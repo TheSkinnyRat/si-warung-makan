@@ -106,7 +106,7 @@
       <!-- End of Topbar -->
       <div class="bg-primary text-white rounded-bottom container py-2 px-3 shadow-lg">
         <div class="text-center">
-          <a href="#" class="text-white font-weight-bold">
+          <a href="{{ route('home.pelanggan.pesanan') }}" class="text-white font-weight-bold">
             <span class="font-weight-bold">Total Pesanan ({{ $count['pesanan'] }}) = @rupiah($count['harga'])</span>
             <i class="fas fa-arrow-circle-right"></i>
           </a>

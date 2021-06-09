@@ -40,7 +40,7 @@
                         <th>Detail</th>
                         <th>Total Bayar</th>
                         <th>Status</th>
-                        <th class="text-center">Nota</th>
+                        <th class="text-center">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -64,8 +64,12 @@
                           </td>
                           <td>{{ $pemesanan->status->status }}</td>
                           <td class="text-center">
-                            @if ($pemesanan->id_status > 3 && $pemesanan->id_status != 7 )
+                            @if ($pemesanan->id_status > 3 && $pemesanan->id_status != 7)
                               <a href="{{ route('home.pelanggan.riwayat.nota', ['id' => $pemesanan->id_pemesanan]) }}" class="btn btn-info btn-sm">Lihat Nota</a>
+                            @elseif ($pemesanan->id_status == 2)
+                              <a href="{{ route('home.pelanggan.checkout', ['id' => $pemesanan->id_pemesanan]) }}" class="btn btn-primary btn-sm">Bayar</a>
+                            @elseif ($pemesanan->id_status == 3)
+                              <a href="{{ route('home.pelanggan.bayar', ['id' => $pemesanan->id_pemesanan]) }}" class="btn btn-primary btn-sm">Lihat</a>
                             @else
                               -
                             @endif

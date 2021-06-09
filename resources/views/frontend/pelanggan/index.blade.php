@@ -6,6 +6,11 @@
         <div class="row my-md-4 justify-content-center">
           <div class="col">
             <h1 class="h3 text-gray-800 font-weight-bold text-center">Selamat Datang, <br class="d-lg-none">{{ $pelanggans->nama }}</h1>
+            @if (session('message'))
+              <div class="alert alert-{{ Session::get('message-class', 'warning') }} p-1 m-0 text-center" role="alert">
+                {{ session('message') }}
+              </div>
+            @endif
             <hr>
             <div class="row">
               <div class="col-12 col-lg-6 col-xl-4 my-2 px-4 px-lg-3">

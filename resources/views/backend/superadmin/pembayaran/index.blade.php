@@ -56,7 +56,7 @@
                           <td>{{ $pembayaran->id_pembayaran }}</td>
                           <td>{{ $pembayaran->pemesanan->id_pemesanan }}-{{ $pembayaran->pemesanan->pelanggan->nama }}</td>
                           <td>@rupiah($pembayaran->total_bayar)</td>
-                          <td>{{ $pembayaran->tgl_pembayaran }}</td>
+                          <td>{{ $pembayaran->pemesanan->id_status > 3 ? $pembayaran->tgl_pembayaran : '-' }}</td>
                           <td>
                             <a href="{{ route('backend.superadmin.pembayaran.edit', ['id' => $pembayaran->id_pembayaran]) }}" class="btn btn-info btn-sm"><i class="far fa-edit"></i></a>
                             <a href="{{ route('backend.superadmin.pembayaran.delete', ['id' => $pembayaran->id_pembayaran]) }}" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></a>
