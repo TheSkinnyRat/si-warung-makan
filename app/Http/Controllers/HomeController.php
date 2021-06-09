@@ -121,18 +121,33 @@ class HomeController extends Controller
 
     public function pesan(){
         $pelanggans = Session::get('pelanggans');
-        $pemesanans_exist = Pemesanan::where('id_pelanggan', $pelanggans->id_pelanggan)->where('id_status', 1)->get();
-        if ($pemesanans_exist->isEmpty()){
+        $pemesanans = Pemesanan::where('id_pelanggan', $pelanggans->id_pelanggan)->where('id_status', 1)->get();
+        if ($pemesanans->isEmpty()){
             abort(404);
         }
         $menus = Menu_list::orderBy('status')->get();
         $kategoris = Kategori_menu::all();
+        $details = Detail_pemesanan::where('id_pemesanan', $pemesanans->first()->id_pemesanan)->get();
+        $pesanan = 0;
+        $harga = 0;
+        foreach ($details as $detail){
+            $pesanan += $detail->kuantitas;
+            $harga += $detail->menu->harga*$detail->kuantitas;
+        }
+        $count = ([
+            'pesanan' => $pesanan,
+            'harga' => $harga,
+        ]);
 
-        return view('frontend.pelanggan.pesan', ['pelanggans' => $pelanggans, 'menus' => $menus, 'kategoris' => $kategoris]);
+        return view('frontend.pelanggan.pesan', ['pelanggans' => $pelanggans, 'menus' => $menus, 'kategoris' => $kategoris, 'count' => $count, 'details' => $details]);
     }
 
     public function PesanKategori($id){
         $pelanggans = Session::get('pelanggans');
+        $pemesanans = Pemesanan::where('id_pelanggan', $pelanggans->id_pelanggan)->where('id_status', 1)->get();
+        if ($pemesanans->isEmpty()){
+            abort(404);
+        }
         $menus = Menu_list::where('id_kategori', $id)->orderBy('status')->get();
         $kategoris = Kategori_menu::all();
         $kategori = Kategori_menu::find($id);
@@ -140,14 +155,25 @@ class HomeController extends Controller
             abort(404);
         }
         $kategori_name = $kategori->kategori;
+        $details = Detail_pemesanan::where('id_pemesanan', $pemesanans->first()->id_pemesanan)->get();
+        $pesanan = 0;
+        $harga = 0;
+        foreach ($details as $detail){
+            $pesanan += $detail->kuantitas;
+            $harga += $detail->menu->harga*$detail->kuantitas;
+        }
+        $count = ([
+            'pesanan' => $pesanan,
+            'harga' => $harga,
+        ]);
         
-        return view('frontend.pelanggan.pesan', ['pelanggans' => $pelanggans, 'menus' => $menus, 'kategoris' => $kategoris, 'kategori_name' => $kategori_name]);
+        return view('frontend.pelanggan.pesan', ['pelanggans' => $pelanggans, 'menus' => $menus, 'kategoris' => $kategoris, 'kategori_name' => $kategori_name, 'count' => $count, 'details' => $details]);
     }
 
     public function pesanDo(){
         $pelanggans = Session::get('pelanggans');
-        $pemesanans_exist = Pemesanan::where('id_pelanggan', $pelanggans->id_pelanggan)->where('id_status', 1)->get();
-        if ($pemesanans_exist->isNotEmpty()){
+        $pemesanans = Pemesanan::where('id_pelanggan', $pelanggans->id_pelanggan)->where('id_status', 1)->get();
+        if ($pemesanans->isNotEmpty()){
             return redirect()->route('home.pelanggan.pesan');
         }
         $pemesanans = new Pemesanan;
@@ -157,6 +183,87 @@ class HomeController extends Controller
         $pemesanans->id_status = 1;
         $pemesanans->save();
 
+        return redirect()->route('home.pelanggan.pesan');
+    }
+
+    public function pesanAdd($id){
+        $pelanggans = Session::get('pelanggans');
+        $pemesanans = Pemesanan::where('id_pelanggan', $pelanggans->id_pelanggan)->where('id_status', 1)->get();
+        if ($pemesanans->isEmpty()){
+            abort(404);
+        }
+        $menus = Menu_list::find($id);
+        if (!$menus || $menus->status != 0){
+            abort(404);
+        }
+        $details = Detail_pemesanan::where('id_pemesanan', $pemesanans->first()->id_pemesanan)->get();
+        $pesanan = 0;
+        $harga = 0;
+        foreach ($details as $detail){
+            $pesanan += $detail->kuantitas;
+            $harga += $detail->menu->harga*$detail->kuantitas;
+        }
+        $count = ([
+            'pesanan' => $pesanan,
+            'harga' => $harga,
+        ]);
+        $detail = Detail_pemesanan::where('id_pemesanan', $pemesanans->first()->id_pemesanan)->where('id_menu', $menus->id_menu)->get();
+        if ($detail->isNotEmpty()){
+            return view('frontend.pelanggan.pesan_add', ['pelanggans' => $pelanggans, 'menus' => $menus, 'count' => $count, 'detail' => $detail]);
+        }
+
+        return view('frontend.pelanggan.pesan_add', ['pelanggans' => $pelanggans, 'menus' => $menus, 'count' => $count]);
+    }
+
+    public function pesanAddDo($id, Request $request){
+        $pelanggans = Session::get('pelanggans');
+        $pemesanans = Pemesanan::where('id_pelanggan', $pelanggans->id_pelanggan)->where('id_status', 1)->get();
+        if ($pemesanans->isEmpty()){
+            abort(404);
+        }
+        $menus = Menu_list::find($id);
+        if (!$menus || $menus->status != 0){
+            abort(404);
+        }
+        $request->validate([
+            'kuantitas' => 'required|numeric|min:1|max:500',
+        ]);
+        $detail = Detail_pemesanan::where('id_pemesanan', $pemesanans->first()->id_pemesanan)->where('id_menu', $menus->id_menu)->get();
+        if ($detail->isNotEmpty()){
+            $details = Detail_pemesanan::find($detail->first()->id_pemesanan_detail);
+            Session::flash('message', 'Berhasil mengubah pesanan');
+            Session::flash('message-class', 'info');
+        }else{
+            $details = new Detail_pemesanan;
+            Session::flash('message', 'Berhasil menambahkan pesanan');
+            Session::flash('message-class', 'success');
+        }
+        $details->id_pemesanan = $pemesanans->first()->id_pemesanan;
+        $details->id_menu = $menus->id_menu;
+        $details->kuantitas = $request->kuantitas;
+        $details->save();
+
+        return redirect()->route('home.pelanggan.pesan');
+    }
+
+    public function pesanDeleteDo($id, Request $request){
+        $pelanggans = Session::get('pelanggans');
+        $pemesanans = Pemesanan::where('id_pelanggan', $pelanggans->id_pelanggan)->where('id_status', 1)->get();
+        if ($pemesanans->isEmpty()){
+            abort(404);
+        }
+        $menus = Menu_list::find($id);
+        if (!$menus || $menus->status != 0){
+            abort(404);
+        }
+        $detail = Detail_pemesanan::where('id_pemesanan', $pemesanans->first()->id_pemesanan)->where('id_menu', $menus->id_menu)->first();
+        if (!$detail){
+            abort(404);
+        }
+        Detail_pemesanan::destroy($detail->id_pemesanan_detail);
+
+        Session::flash('message', 'Berhasil menghapus pesanan');
+        Session::flash('message-class', 'danger');
         return redirect()->route('home.pelanggan.pesan');
     }
 

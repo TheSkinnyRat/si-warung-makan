@@ -6,6 +6,11 @@
         <div class="row my-md-4 pt-5 justify-content-center">
           <div class="col">
             <h1 class="h3 text-gray-800 font-weight-bold text-center">{{ $pelanggans->nama }}, <br class="d-lg-none">Mau Pesan Apa?</h1>
+            @if (session('message'))
+              <div class="alert alert-{{ Session::get('message-class', 'warning') }} p-1 m-0 text-center" role="alert">
+                {{ session('message') }}
+              </div>
+            @endif
             <hr>
             <div class="row justify-content-center">
               <div class="col-12 text-center mb-2">
@@ -19,6 +24,9 @@
                       <a class="dropdown-item" href="{{ route('home.pelanggan.pesan.kategori', ['id' => $kategori->id_kategori]) }}">{{ $kategori->kategori }}</a>
                     @endforeach
                   </div>
+                  @if ($count['pesanan'] > 0)
+                    <a href="#" class="btn btn-success btn-sm">Lanjutkan <i class="fas fa-arrow-right"></i></a>
+                  @endif
                 </div>
               </div>
               @forelse ($menus as $menu)
@@ -38,7 +46,12 @@
                           </div>
                           <div class="col-6">
                             @if ($menu->status == 0)
-                              <a href="#" class="btn btn-success btn-sm btn-block">Pesan</a>
+                              @php $detail = $details->where('id_menu', $menu->id_menu)->first() @endphp
+                              @if ($detail)
+                                <a href="{{ route('home.pelanggan.pesan.add', ['id' => $menu->id_menu]) }}" class="btn btn-info btn-sm btn-block">({{ $detail->kuantitas }}) Ubah</a>
+                              @else
+                                <a href="{{ route('home.pelanggan.pesan.add', ['id' => $menu->id_menu]) }}" class="btn btn-success btn-sm btn-block">Pesan</a>
+                              @endif
                             @elseif ($menu->status == 1)
                               <a href="#" class="btn btn-danger btn-sm btn-block disabled">Stok Habis</a>
                             @else

@@ -5,7 +5,7 @@
       <div class="container">
         <div class="row my-md-4 justify-content-center">
           <div class="col">
-            <h1 class="h3 text-gray-800 font-weight-bold text-center">Selamat Datang, Mau Pesan Apa?</h1>
+            <h1 class="h3 text-gray-800 font-weight-bold text-center">Selamat Datang, <br class="d-lg-none">Mau Pesan Apa?</h1>
             <hr>
             <div class="row justify-content-center">
               <div class="col-12 text-center mb-2">

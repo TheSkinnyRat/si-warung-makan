@@ -60,11 +60,17 @@
         <div class="topbar-divider d-none d-lg-block"></div>
 
         <div class="navbar-text">
-          <a href="pages/pesanan.html" class="btn btn-primary btn-sm text-white">
-            <i class="fas fa-concierge-bell fa-lg"></i>
-            <div class="d-none d-sm-inline">Pesanan</div>
-            <span class="badge badge-pill badge-light">7</span>
-          </a>
+          @if (Session::get('pelanggans'))
+            <a href="{{ route('home.pelanggan') }}" class="btn btn-primary btn-sm text-white">
+              <i class="fas fa-home"></i>
+              <div class="d-none d-sm-inline">Home</div>
+            </a>
+          @else
+            <a href="{{ route('home.login') }}" class="btn btn-primary btn-sm text-white">
+              <i class="fas fa-sign-in-alt"></i>
+              <div class="d-none d-sm-inline">Login</div>
+            </a>
+          @endif
 
           <button class="btn btn-link btn-sm d-lg-none rounded-circle" type="button" data-toggle="collapse" data-target="#navToggler1" aria-controls="navToggler1" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fa fa-bars"></i>
@@ -101,7 +107,7 @@
       <div class="bg-primary text-white rounded-bottom container py-2 px-3 shadow-lg">
         <div class="text-center">
           <a href="#" class="text-white font-weight-bold">
-            <span class="font-weight-bold">Total Harga: Rp 10.000</span>
+            <span class="font-weight-bold">Total Pesanan ({{ $count['pesanan'] }}) = @rupiah($count['harga'])</span>
             <i class="fas fa-arrow-circle-right"></i>
           </a>
         </div>
